@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome to Serpofony !{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<div id="nav">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/admin/users">Admin (Userlist)</a></li>
+    </ul>
+</div>
+
+<div id="content">
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+</div>
+</body>
 </html>

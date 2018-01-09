@@ -6,13 +6,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class UsersController extends Controller
+class GlobalController extends Controller
 {
     /**
-     * @Route("/users", name="users")
+     * @Route("/", name="global")
      */
     public function index()
     {
-        return new Response('Welcome to your new controller!');
+        return $this->render('index.html.twig');
     }
 }
