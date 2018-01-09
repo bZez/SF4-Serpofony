@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
 
 class GlobalController extends Controller
 {
@@ -21,14 +19,9 @@ class GlobalController extends Controller
     /**
      * @Route("/admin", name="admin")
      */
-    public function admin(Environment $twig, UserRepository $usersRep)
+    public function admin()
     {
-        $users = $usersRep->findAll();
-
-
-        return new Response($twig->render('admin/user/list.html.twig',[
-            'users' => $users
-        ]));
+        return $this->render('admin/admin.html.twig');
     }
 
     /**

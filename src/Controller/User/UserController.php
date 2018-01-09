@@ -17,6 +17,18 @@ use Doctrine\ORM\EntityManager;
 
 class UserController extends Controller
 {
+    /**
+     * @Route("/admin/users", name="users")
+     */
+    public function listAction(Environment $twig, UserRepository $usersRep)
+    {
+        $users = $usersRep->findAll();
+
+
+        return new Response($twig->render('admin/user/list.html.twig',[
+            'users' => $users
+        ]));
+    }
 
     /**
      * @Route("/admin/users/{id}", name="user_show")
@@ -28,7 +40,7 @@ class UserController extends Controller
                 'No user found for id '.$user
             );
         }
-       return new Response($twig->render('admin/user/show.html.twig', ['user' => $user]));
+       return new Response($twig->render('admin/user/edit.html.twig', ['user' => $user]));
     }
 
     /**
@@ -53,7 +65,7 @@ class UserController extends Controller
         }
 
         return $this->render(
-            'admin/user/show.html.twig',
+            'admin/user/edit.html.twig',
             array(
                 'form' => $form->createView(),
                 'user' => $user)

@@ -16,7 +16,10 @@ h1 {
   margin-bottom: 20px;
   border-bottom: 1px solid #eee;
 }
-
+small {
+  font-size: x-small;
+  font-variant: small-caps;
+}
 /*
  * Sidebar
  */

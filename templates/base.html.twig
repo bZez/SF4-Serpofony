@@ -12,12 +12,15 @@
 
 <div class="container-fluid">
     <div class="row">
+        {% if app.user %}
         {% include 'nav.html.twig' %}
-
+        {# Logged, display left nav #}
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-
-    {% block body %}{% endblock %}
-        </main>
+            {% endif %}
+            {# Not logged, so hide left nav (col-md-12) #}
+            <main role="main" class="col-sm-9 ml-sm-auto col-md-12 pt-3">
+                {% block body %}{% endblock %}
+            </main>
     </div>
 </div>
 
