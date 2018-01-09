@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome to Serpofony !{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
-<div id="nav">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/register">Register</a></li>
-        <li><a href="/admin/users">Admin (Userlist)</a></li>
-    </ul>
+{% include 'header.html.twig' %}
+
+<div class="container-fluid">
+    <div class="row">
+        {% include 'nav.html.twig' %}
+
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+
+    {% block body %}{% endblock %}
+        </main>
+    </div>
 </div>
 
-<div id="content">
-    {% block body %}{% endblock %}
-    {% block javascripts %}{% endblock %}
-</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </body>
 </html>

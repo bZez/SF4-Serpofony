@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1>Welcome to Serpfony !</h1>
+    <h3>Last check: {{ "now"|date("Y-m-d") }}</h3>
+    {% include 'admin/dash.html.twig' %}
 {% endblock %}
