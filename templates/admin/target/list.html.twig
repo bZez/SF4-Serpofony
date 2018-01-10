@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <a href="/targets/new">
+        <button class="btn btn-lg btn-primary btn-block">ADD TARGET</button></a>
+    <hr>
+    <h1>Targets list:</h1>
+    <table class="table table-hover table-responsive-xl">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>URL</th>
+            <th class="text-right">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for target in targets %}
+            <tr onclick="window.location='{{ path('target_show',{'id': target.id}) }}'">
+                <td>{{ target.id }}</td>
+                <td>{{ target.name }}</td>
+                <td>{{ target.pattern }}</td>
+                <td class="text-right">
+                    <a href="{{ path('target_delete', {'id': target.id}) }}"><button class="btn btn-danger">✕</button></a>
+                    <a href="{{ path('target_edit', {'id': target.id}) }}"><button class="btn btn-primary">✎</button></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

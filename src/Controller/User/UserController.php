@@ -7,13 +7,11 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Doctrine\ORM\EntityManager;
 
 class UserController extends Controller
 {
@@ -40,11 +38,11 @@ class UserController extends Controller
                 'No user found for id '.$user
             );
         }
-       return new Response($twig->render('admin/user/edit.html.twig', ['user' => $user]));
+       return new Response($twig->render('admin/user/view.html.twig', ['user' => $user]));
     }
 
     /**
-     * @Route("/admin/users/edit/{id}")
+     * @Route("/admin/users/edit/{id}", name="user_edit")
      */
     public function updateAction(Request $request,User $user,FormFactoryInterface $userForm)
     {
@@ -73,7 +71,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/admin/users/delete/{id}")
+     * @Route("/admin/users/delete/{id}", name="user_delete")
      */
     public function deleteAction(User $user,Environment $twig, UserRepository $usersRep)
     {

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <h1>User {{ user.id }} info:</h1>
+    <table class="table table-active table-hover table-responsive-lg">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Mail</th>
+            <th>Username</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.username }}</td>
+            <td class="text-right">
+                <a href="{{ path('user_delete',{'id': user.id}) }}">
+                    <button class="btn-danger btn">✕</button>
+                </a>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <form name="search" method="post">
+            <h2 class="form-signin-heading">Add keyword(s):</h2>
+            <div id="search">
+                <div>
+                    <input type="text" id="search_keyword" name="search[keyword]" required="required" placeholder="Keywords (separated by semicolon)" class="form-control"/>
+                </div>
+            </div>
+            <hr>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">ADD !</button>
+
+        </form>
+    </div>
+{% endblock %}

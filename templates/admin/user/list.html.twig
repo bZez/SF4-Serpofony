@@ -4,26 +4,26 @@
         <button class="btn btn-lg btn-primary btn-block">ADD USER</button></a>
     <hr>
     <h1>Users list:</h1>
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th>id</th>
             <th>Mail</th>
             <th>Username</th>
-            <th>Actions</th>
+            <th class="text-right">Actions</th>
         </tr>
         </thead>
-        <tbody>
+        <a>
         {% for user in users %}
-            <tr>
+           <tr onclick="window.location='{{ path('user_show',{'id': user.id}) }}'">
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.username }}</td>
-                <td>
-                    <a href="/admin/users/delete/{{ user.id }}"><button>✕</button></a>
-                    <a href="/admin/users/edit/{{ user.id }}"><button>✎</button></a>
+                <td class="text-right">
+                    <a href="{{ path('user_delete', {'id': user.id}) }}"><button class="btn btn-danger">✕</button></a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}"><button class="btn btn-primary">✎</button></a>
                 </td>
-            </tr>
+        </tr>
         {% endfor %}
         </tbody>
     </table>

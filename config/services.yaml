@@ -29,3 +29,11 @@ services:
     App\Controller\User\:
             resource: '../src/Controller/User'
             tags: ['controller.service_arguments']
+
+    App\Controller\Target\:
+            resource: '../src/Controller/Target'
+            tags: ['controller.service_arguments']
+
+    App\Controller\Search\:
+            resource: '../src/Controller/Search'
+            tags: ['controller.service_arguments']

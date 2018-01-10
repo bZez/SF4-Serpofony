@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <form name="target" method="post">
+            <h2 class="form-signin-heading">Add new target:</h2>
+            <div id="target">
+                <div>
+                    <label for="target_name" class="required">Name</label>
+                    <input type="text" id="target_name" name="target[name]" required="required" placeholder="Name ('Google')" class="form-control"/>
+                </div>
+                <div>
+                    <label for="target_pattern" class="required">Pattern</label>
+                    <input type="url" id="target_pattern" name="target[pattern]" required="required" placeholder="URL (http://google.fr')" class="form-control"/>
+                </div>
+            </div>
+            <hr>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Create !</button>
+
+        </form>
+    </div>
+{% endblock %}

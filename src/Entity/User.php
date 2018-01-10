@@ -49,6 +49,11 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @ORM\Column(type="date")
+     */
+    private $logout;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -139,4 +144,21 @@ class User implements UserInterface
             // $this->salt
             ) = unserialize($serialized);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLogout()
+    {
+        return $this->logout;
+    }
+
+    /**
+     * @param mixed $logout
+     */
+    public function setLogout($logout): void
+    {
+        $this->logout = $logout;
+    }
+
 }
