@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <a href="/groups/new">
+        <button class="btn btn-lg btn-primary btn-block">NEW GROUP</button></a>
+    <hr>
+    <h1>Searches list:</h1>
+    <table class="table table-hover table-responsive-xl">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Searches</th>
+            <th>Targets</th>
+            <th class="text-right">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for group in groups %}
+            <tr onclick="window.location='{{ path('group_show',{'id': group.id}) }}'">
+                <td>{{ group.id }}</td>
+                <td>{{ group.name }}</td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    <a href="{{ path('group_delete', {'id': group.id}) }}"><button class="btn btn-danger">✕</button></a>
+                    <a href="{{ path('group_edit', {'id': group.id}) }}"><button class="btn btn-primary">✎</button></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

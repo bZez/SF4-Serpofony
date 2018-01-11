@@ -24,10 +24,10 @@ class Target
     private $name;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Length(max=11)
+     * @var Group
+     * @ORM\ManyToOne(targetEntity="Group",inversedBy="targets")
      */
-    private $group_id;
+    private $group;
 
     /**
      * @ORM\Column(type="string")
@@ -72,6 +72,23 @@ class Target
     public function setPattern($pattern): void
     {
         $this->pattern = $pattern;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param mixed $group
+     */
+    public function setGroup(Group $group): void
+    {
+        $this->group = $group;
+        $group->addTarget($this);
     }
 
 

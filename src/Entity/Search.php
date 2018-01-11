@@ -47,6 +47,12 @@ class Search
     private $parameters;
 
     /**
+     * @var Group
+     * @ORM\ManyToOne(targetEntity="Group",inversedBy="targets")
+     */
+    private $group;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -149,4 +155,22 @@ class Search
     {
         $this->parameters = $parameters;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param mixed $group
+     */
+    public function setGroup(Group $group): void
+    {
+        $this->group = $group;
+        $group->addSearch($this);
+    }
+
 }

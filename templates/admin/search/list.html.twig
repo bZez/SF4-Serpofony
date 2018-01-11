@@ -8,8 +8,8 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>URL</th>
             <th>Keywords</th>
+            <th>Group</th>
             <th class="text-right">Actions</th>
         </tr>
         </thead>
@@ -17,8 +17,8 @@
         {% for search in searches %}
             <tr onclick="window.location='{{ path('search_show',{'id': search.id}) }}'">
                 <td>{{ search.id }}</td>
-                <td>www.example.com</td>
                 <td>{{ search.keyword }}</td>
+                <td>{{ search.group.name }}</td>
                 <td class="text-right">
                     <a href="{{ path('search_delete', {'id': search.id}) }}"><button class="btn btn-danger">✕</button></a>
                     <a href="{{ path('search_edit', {'id': search.id}) }}"><button class="btn btn-primary">✎</button></a>

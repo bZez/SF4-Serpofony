@@ -8,6 +8,14 @@
                     <input type="text" id="search_keyword" name="search[keyword]" required="required" placeholder="Keywords (separated by semicolon)" class="form-control"/>
                 </div>
             </div>
+            <div>
+                <label for="target_group" class="required">Group(s)</label>
+                <select id="target_group" name="search[group]" required="required" class="form-control">
+                    {% for group in groups %}
+                        <option value="{{ group.id }}">{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
             <hr>
             <button class="btn btn-lg btn-primary btn-block" type="submit">ADD !</button>
 

@@ -8,20 +8,20 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ path('homepage') }}">HOME<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/targets">TARGETS</a>
+                    <a class="nav-link" href="{{ path('groups') }}">GROUPS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/settings">SETTINGS</a>
+                    <a class="nav-link" href="#">SETTINGS</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">CHECK RANKS</a>
                 </li>
                 {% if app.user %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">LOGOUT</a>
+                    <a class="nav-link" href="{{ path('logout') }}">LOGOUT</a>
                 </li>
                 {% endif %}
             </ul>

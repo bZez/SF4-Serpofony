@@ -3,7 +3,9 @@
 namespace App\Controller\Target;
 
 
+use App\Entity\Group;
 use App\Entity\Target;
+use App\Repository\GroupRepository;
 use App\Repository\TargetRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -11,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Form\TargetType;
 
 class TargetController extends Controller
 {
@@ -84,6 +87,40 @@ class TargetController extends Controller
         return new Response($twig->render('admin/target/list.html.twig',[
             'targets' => $targets
         ]));
+    }
+
+    /**
+     * @Route("/targets/new", name="target_form")
+     */
+    public function addAction(Request $request, GroupRepository $groupRep)
+    {
+        $groups = $groupRep->findAll();
+        // 1) build the form
+        $target = new Target();
+
+        $form = $this->createForm(TargetType::class, $target);
+
+        // 2) handle the submit (will only happen on POST)
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // 4) save theTarget!
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($target);
+            $em->flush();
+
+            // ... do any other work - like sending them an email, etc
+            // maybe set a "flash" success message for the target
+
+            return $this->redirectToRoute('targets');
+        }
+
+        return $this->render(
+            'admin/target/new.html.twig',
+            array(
+                'groups' => $groups,
+                'form' => $form->createView())
+        );
     }
 
 }

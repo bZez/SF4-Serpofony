@@ -10,6 +10,7 @@
             <th>id</th>
             <th>Name</th>
             <th>URL</th>
+            <th>Group</th>
             <th class="text-right">Actions</th>
         </tr>
         </thead>
@@ -19,6 +20,7 @@
                 <td>{{ target.id }}</td>
                 <td>{{ target.name }}</td>
                 <td>{{ target.pattern }}</td>
+                <td>{{ target.group.name }}</td>
                 <td class="text-right">
                     <a href="{{ path('target_delete', {'id': target.id}) }}"><button class="btn btn-danger">✕</button></a>
                     <a href="{{ path('target_edit', {'id': target.id}) }}"><button class="btn btn-primary">✎</button></a>

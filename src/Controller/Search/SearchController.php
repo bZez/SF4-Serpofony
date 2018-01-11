@@ -5,6 +5,7 @@ namespace App\Controller\Search;
 
 use App\Entity\Search;
 use App\Form\SearchType;
+use App\Repository\GroupRepository;
 use App\Repository\SearchRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -21,10 +22,8 @@ class SearchController extends Controller
     public function listAction(Environment $twig, SearchRepository $searchRep)
     {
         $searches = $searchRep->findAll();
-
-
         return new Response($twig->render('admin/search/list.html.twig',[
-            'searches' => $searches
+            'searches' => $searches,
         ]));
     }
 
@@ -44,7 +43,7 @@ class SearchController extends Controller
     /**
      * @Route("/admin/searches/edit/{id}", name="search_edit")
      */
-    public function updateAction(Request $request,search $search,FormFactoryInterface $searchForm)
+    public function updateAction(Request $request,Search $search,FormFactoryInterface $searchForm)
     {
         $doctrine = $this->getDoctrine()->getManager();
         $form = $searchForm->createBuilder(SearchType::class, $search)->getForm();
@@ -73,18 +72,51 @@ class SearchController extends Controller
     /**
      * @Route("/admin/searches/delete/{id}", name="search_delete")
      */
-    public function deleteAction(search $search,Environment $twig, searchRepository $searchsRep)
+    public function deleteAction(Search $search,Environment $twig, SearchRepository $searchsRep)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($search);
         $em->flush();
 
-        $searchs = $searchsRep->findAll();
+        $searches = $searchsRep->findAll();
 
 
         return new Response($twig->render('admin/search/list.html.twig',[
-            'searchs' => $searchs
+            'searches' => $searches
         ]));
+    }
+    /**
+     * @Route("/searches/new", name="search_form")
+     */
+    public function addAction(Request $request, GroupRepository $groupRep)
+    {
+        $groups = $groupRep->findAll();
+        // 1) build the form
+        $search = new Search();
+
+        $form = $this->createForm(SearchType::class, $search);
+
+        // 2) handle the submit (will only happen on POST)
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // 4) save theTarget!
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($search);
+            $em->flush();
+
+            // ... do any other work - like sending them an email, etc
+            // maybe set a "flash" success message for the target
+
+            return $this->redirectToRoute('searches');
+        }
+
+        return $this->render(
+            'admin/search/new.html.twig',
+            array(
+                'groups' => $groups,
+                'form' => $form->createView())
+        );
     }
 
 }

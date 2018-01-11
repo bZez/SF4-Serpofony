@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <form name="group" method="post">
+            <h2 class="form-signin-heading">New group:</h2>
+            <div id="search">
+                <div>
+                    <input type="text" id="group_name" name="group[name]" required="required" placeholder="Group name" class="form-control"/>
+                </div>
+            </div>
+            <hr>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">ADD !</button>
+
+        </form>
+    </div>
+{% endblock %}

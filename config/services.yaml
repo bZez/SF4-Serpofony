@@ -37,3 +37,7 @@ services:
     App\Controller\Search\:
             resource: '../src/Controller/Search'
             tags: ['controller.service_arguments']
+
+    App\Controller\Group\:
+            resource: '../src/Controller/Group'
+            tags: ['controller.service_arguments']

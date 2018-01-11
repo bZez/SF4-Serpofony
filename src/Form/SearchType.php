@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Search;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +15,7 @@ class SearchType extends AbstractType
     {
         $builder
             ->add('keyword',TextType::class)
+            ->add('group',EntityType::class,['class'=>'App\Entity\Group','choice_label'=>'name'])
         ;
     }
 

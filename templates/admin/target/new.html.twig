@@ -6,11 +6,21 @@
             <div id="target">
                 <div>
                     <label for="target_name" class="required">Name</label>
-                    <input type="text" id="target_name" name="target[name]" required="required" placeholder="Name ('Google')" class="form-control"/>
+                    <input type="text" id="target_name" name="target[name]" required="required"
+                           placeholder="Name ('Google')" class="form-control"/>
                 </div>
                 <div>
                     <label for="target_pattern" class="required">Pattern</label>
-                    <input type="url" id="target_pattern" name="target[pattern]" required="required" placeholder="URL (http://google.fr')" class="form-control"/>
+                    <input type="url" id="target_pattern" name="target[pattern]" required="required"
+                           placeholder="URL (http://google.fr')" class="form-control"/>
+                </div>
+                <div>
+                    <label for="target_group" class="required">Group(s)</label>
+                    <select id="target_group" name="target[group]" required="required" class="form-control">
+                        {% for group in groups %}
+                            <option value="{{ group.id }}">{{ group.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <hr>
