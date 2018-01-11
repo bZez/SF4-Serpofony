@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use \howie6879\PhpGoogle\MagicGoogle;
 
 class GroupController extends Controller
 {
@@ -127,6 +128,20 @@ class GroupController extends Controller
             'admin/group/new.html.twig',
             array('form' => $form->createView())
         );
+    }
+
+    /**
+     * @Route("/admin/groups/{id}/check",name="group_check")
+     */
+    public function checkRank()
+    {
+        $magicGoogle = new MagicGoogle();
+        # Get {'title','url','text'}
+        $data = $magicGoogle->search('python', 'en', '1');
+        foreach ($data as $value) {
+            var_dump($value);
+        }
+
     }
 }
 

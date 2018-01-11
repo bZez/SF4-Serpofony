@@ -56,6 +56,9 @@
     "doctrine/orm": {
         "version": "v2.6.0"
     },
+    "howie6879/php-google": {
+        "version": "1.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -85,6 +88,9 @@
             "version": "4.0",
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
+    },
+    "sunra/php-simple-html-dom-parser": {
+        "version": "v1.5.2"
     },
     "symfony/asset": {
         "version": "v4.0.3"

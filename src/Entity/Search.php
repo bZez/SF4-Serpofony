@@ -48,7 +48,7 @@ class Search
 
     /**
      * @var Group
-     * @ORM\ManyToOne(targetEntity="Group",inversedBy="targets")
+     * @ORM\ManyToOne(targetEntity="Group",inversedBy="searches")
      */
     private $group;
 
