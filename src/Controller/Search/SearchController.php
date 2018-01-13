@@ -6,7 +6,9 @@ namespace App\Controller\Search;
 use App\Entity\Search;
 use App\Form\SearchType;
 use App\Repository\GroupRepository;
+use App\Repository\RankRepository;
 use App\Repository\SearchRepository;
+use App\Repository\TargetRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,14 +32,22 @@ class SearchController extends Controller
     /**
      * @Route("/admin/searches/{id}", name="search_show")
      */
-    public function showAction(Environment $twig,Search $search)
+    public function showAction(Environment $twig,Search $search,RankRepository $rankRepository,TargetRepository $targetRepository)
     {
+        $ranks = $rankRepository->findBy(array(
+            'search' => $search
+        ));
+        $targets = $targetRepository->findAll();
         if (!$search) {
             throw $this->createNotFoundException(
                 'No search found for id '.$search
             );
         }
-        return new Response($twig->render('admin/search/view.html.twig', ['search' => $search]));
+        return new Response($twig->render('admin/search/view.html.twig', [
+            'search' => $search,
+            'ranks' => $ranks,
+            'targets' => $targets
+            ]));
     }
 
     /**

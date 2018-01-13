@@ -41,6 +41,7 @@ class Group
      */
     private $searches;
 
+
     public function __construct()
     {
         $this->targets = new ArrayCollection();
@@ -59,14 +60,29 @@ class Group
             $this->searches->add($search);
     }
 
+
+    /**
+     * @return Target[]
+     */
     public function getTargets()
     {
         return $this->targets->toArray();
     }
 
+    /**
+     * @return Search[]
+     */
     public function getSearches()
     {
         return $this->searches->toArray();
+    }
+
+    /**
+     * @return Run[]
+     */
+    public function getRuns()
+    {
+        return $this->runs->toArray();
     }
 
 

@@ -4,17 +4,24 @@ namespace App\Controller\Group;
 
 
 use App\Entity\Group;
+use App\Entity\Rank;
+use App\Entity\Run;
+use App\Entity\Search;
+use App\Entity\Target;
 use App\Form\GroupType;
 use App\Repository\GroupRepository;
 use App\Repository\SearchRepository;
 use App\Repository\TargetRepository;
+use CViniciusSDias\GoogleCrawler\Crawler;
+use CViniciusSDias\GoogleCrawler\Proxy\CommonProxy;
+use CViniciusSDias\GoogleCrawler\SearchTerm;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use \howie6879\PhpGoogle\MagicGoogle;
 
 class GroupController extends Controller
 {
@@ -41,6 +48,7 @@ class GroupController extends Controller
         $targets = $targetRep->findBy(
             array('group' => $group)
         );
+
         if (!$group) {
             throw $this->createNotFoundException(
                 'No group found for id ' . $group
@@ -133,15 +141,61 @@ class GroupController extends Controller
     /**
      * @Route("/admin/groups/{id}/check",name="group_check")
      */
-    public function checkRank()
+    public function checkRank(SearchRepository $searchRep, Group $group,Environment $twig,EntityManagerInterface $em,TargetRepository $targetRep)
     {
-        $magicGoogle = new MagicGoogle();
-        # Get {'title','url','text'}
-        $data = $magicGoogle->search('python', 'en', '1');
-        foreach ($data as $value) {
-            var_dump($value);
-        }
+        /**
+         * @var $searches Search[]
+         */
+        $searches = $searchRep->findBy(
+            array('group' => $group)
+        );
 
+        /**
+         * @var $targets Target[]
+         */
+        $targets = $targetRep->findBy(
+            array('group' => $group)
+        );
+
+
+        $commonProxy = new CommonProxy('https://de.hideproxy.me/includes/process.php?action=update');
+        foreach ($searches as $search) {
+            $searchTerm = new SearchTerm($search->getKeyword());
+            $crawler = new Crawler($searchTerm, $commonProxy);
+            $results = $crawler->getResults();
+            if(!empty($results)){
+                $i = 1;
+                foreach ($results as $result){
+                    $position = $i;
+                    $url= $result->getUrl();
+                    /*$title = $result->getTitle();*/
+                    $rank = new Rank();
+                    $run = new Run();
+                    $rank->setGroup($group);
+                    $rank->setRank($position);
+                    $rank->setSearch($search);
+                    $rank->setUrl($url);
+                    $run->setRank($rank);
+                    $run->setGroup($group);
+                    foreach ($group->getTargets() as $target){
+                        if(strpos($url,$target->getPattern()) !== false){
+                            $rank->setTarget($target);
+                            break;
+                        }
+                    }
+                    $em->persist($rank);
+                    $i++;
+                }
+                $em->flush();
+            }
+            sleep(5);
+
+        }
+        return new Response($twig->render('admin/group/view.html.twig', [
+            'group' => $group,
+            'targets' => $targets,
+            'searches' => $searches
+        ]));
     }
 }
 

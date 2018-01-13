@@ -5,7 +5,9 @@
     <title>{% block title %}Welcome to Serpofony !{% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+
+    {% endblock %}
 </head>
 <body>
 {% include 'header.html.twig' %}
